@@ -1,29 +1,83 @@
-Menjalankan File Javascript Dengan Node.Js
+Memperlajari Object Process Dan Args Pada Node.Js
 
-=============================================
+===============================
+DOKUMENTASI :
+https://nodejs.org/docs/latest/api/
 
-contoh code simpe
+C:\Users\User>node
+Welcome to Node.js v20.11.1.
+Type ".help" for more information.
+> process
 
-Buat file test.js
+=============================
 
-.....
+bedakan apa itu properti apa itu metode :
 
+> process.version     ini properti "
+'v20.11.1'
+>
+=========================
 
-
-for (let index = 0; index < 10; index++) {
-  console.log("Hello, World!");
+> process.release
+{
+  name: 'node',
+  lts: 'Iron',
+  sourceUrl: 'https://nodejs.org/download/release/v20.11.1/node-v20.11.1.tar.gz',
+  headersUrl: 'https://nodejs.org/download/release/v20.11.1/node-v20.11.1-headers.tar.gz',
+  libUrl: 'https://nodejs.org/download/release/v20.11.1/win-x64/node.lib'
 }
+>
 
-const abc = 123;
-if (abc == 123 ){
-  console.log('betul');
-}else{
-  console.log('salah');
-}
+===============================
 
+kalo ini metode :
 
-==========================
-
-untuk menjalan kan nya ketik node test.js
+> process.cwd()
+'C:\\Users\\User'
+>
 
 ===========================
+
+> process.argv;
+[ 'C:\\Program Files\\nodejs\\node.exe' ]
+>
+
+=======================
+
+console.log("Hello dari file Args.js");
+
+console.log(process.argv);
+
+
+==============================
+
+Dalam penjelasan sederhana, properti process.argv mengembalikan sebuah array yang berisi argumen baris perintah yang dilewatkan saat menjalankan proses Node.js. Elemen pertama array tersebut adalah process.execPath. Jika Anda membutuhkan akses ke nilai asli dari argv[0], Anda dapat menggunakan properti process.argv0. Elemen kedua array adalah jalur ke file JavaScript yang sedang dieksekusi. Elemen-elemen sisanya adalah argumen baris perintah tambahan yang mungkin ada.
+
+For example, assuming the following script for process-args.js:
+
+const { argv } = require('node:process');
+
+// print process.argv
+argv.forEach((val, index) => {
+  console.log(`${index}: ${val}`);
+});
+
+===================== node process-args.js one two=three four 
+
+==========================================================================
+
+process.argv.slice(2).forEach(arg => console.log(`Selamat datang, ${arg}!`));
+
+====================================================
+
+const args = process.argv.slice(2);
+
+for (let arg of args){
+  console.log(`selamat datang, ${arg}`);
+}
+
+============================ node test.js asep asep1 asep2 asep3
+
+objek --> properti --> metede
+
+==================================
