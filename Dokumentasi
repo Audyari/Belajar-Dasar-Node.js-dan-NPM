@@ -1,0 +1,20 @@
+Perkenalan Apa Itu Node.Js
+
+=====================================
+
+Node.js adalah sebuah lingkungan runtime JavaScript yang dibangun di atas mesin JavaScript V8 milik Google Chrome. Node.js memungkinkan Anda 
+menjalankan JavaScript di sisi server, bukan hanya di browser. Hal ini memungkinkan pengembang untuk membuat aplikasi berbasis server yang efisien dan skalabel.
+
+Node.js memiliki beberapa fitur yang membuatnya populer di kalangan pengembang web. Berikut adalah beberapa fitur utama Node.js:
+
+1.Kinerja Tinggi: Node.js menggunakan mesin JavaScript V8 yang sangat cepat dan dioptimalkan untuk menjalankan kode JavaScript dengan efisien. Ini membuat Node.js menjadi pilihan yang baik untuk mengembangkan aplikasi yang membutuhkan kinerja tinggi.
+
+2.Skalabilitas: Node.js dirancang untuk menghadapi permintaan yang tinggi dan dapat memproses banyak koneksi secara bersamaan dengan menggunakan pendekatan non-blokir (non-blocking I/O). Ini memungkinkan aplikasi Node.js untuk menangani banyak permintaan dalam satu waktu tanpa menghambat kinerja.
+
+3.Lingkungan yang Seragam: Node.js menggunakan JavaScript di sisi server dan di sisi klien (browser), sehingga pengembang dapat menggunakan bahasa yang sama di seluruh stack aplikasi. Ini memungkinkan penggunaan kode yang dapat digunakan kembali dan mempercepat proses pengembangan.
+
+4.Modul Ekosistem yang Kaya: Node.js memiliki ekosistem yang luas dengan ribuan modul yang tersedia melalui repositori paket npm (Node Package Manager). Modul-modul ini menyediakan fungsionalitas yang dapat digunakan kembali dan mempercepat proses pengembangan aplikasi.
+
+
+Dalam pengembangan web, Node.js sering digunakan untuk membangun aplikasi berbasis jaringan, aplikasi real-time, dan aplikasi yang membutuhkan skalabilitas tinggi. Contoh penggunaan Node.js termasuk server web, API, layanan backend, streaming data, dan banyak lagi.
+
