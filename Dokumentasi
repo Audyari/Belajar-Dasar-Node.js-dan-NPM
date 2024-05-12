@@ -1,26 +1,37 @@
-Pentingnya File Package.Json
+Cara Menginstall Package Dari Package.Json
 
-===============================
+=============================================
 
-1. npm init
-2. npm install " untuk menginstal semua dependency"
+caba gabukan dua packages :
 
-file package.json memiliki peran yang penting dalam pengembangan perangkat lunak JavaScript. Berikut adalah beberapa alasan mengapa file package.json penting:
+https://www.npmjs.com/package/moment
 
+https://www.npmjs.com/package/node-notifier
 
+===================CODE NYA : 
 
-test package : https://www.npmjs.com/package/format-money-js
+const moment = require('moment');
+const notifier = require('node-notifier');
 
-1. npm i format-money-js
-2. Examples : 
+// Contoh penggunaan Moment.js untuk memformat tanggal
+const today = moment().format('YYYY-MM-DD');
+console.log(`Hari ini: ${today}`);
 
-const { FormatMoney } = require('format-money-js');
-
-const fm = new FormatMoney({
-  decimals: 2
+// Contoh penggunaan node-notifier untuk mengirim notifikasi
+notifier.notify({
+  title: 'Pesan dari Node.js',
+  message: 'Halo! Ini adalah notifikasi dari node-notifier.',
 });
 
-console.log(fm.from(12345.67, { symbol: '$' })); // return string: $12,345.67
-console.log(fm.un('€12,345;67')); // return number: 12345.67
+// Anda dapat menyesuaikan lebih lanjut penggunaan kedua package ini sesuai kebutuhan Anda.
 
-================================================================
+
+==========================================================
+
+web berita bagus : https://dev.to/
+
+===========================================
+
+PR BIKI APLIKASI CHAT DENGAN NODE JS
+
+========================================
