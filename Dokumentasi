@@ -1,47 +1,61 @@
-Bekerja Dengan Module Exports Di Node.Js
+Cara Lain Memanggil File Javascript Dengan Require
 
-==============================================
+====================================================
 
-buat file rumus.js :
+index.js :
 
-const penjumlahan = (a, b) => a + b;
+const embul = require('./embul');
+const flash = require('./flash');
+const marry = require('./marry');
+const mio = require('./mio');
 
-const PI = 3.14;
+const cats = [embul, flash, marry, mio];
 
-const luas = (p, l) => p * l;
+module.exports = cats;
 
-const keliling = (jari) => 2 * PI * jari;
+console.log(cats);
 
-const math = {
-	penjumlahan,
-	PI,
-	luas,
-	keliling,
+console.log(embul.name); // Output: 'embul'
+console.log(embul.color); // Output: 'white'
+
+============================================
+
+module/cats/embul.js :
+
+module.exports = {
+	name: 'embul',
+	color: 'white',
 };
 
-module.exports = math;
+module/cats/flash.js :
 
-// module.exports.penjumlahan = penjumlahan;
-// module.exports.PI = PI;
-// module.exports.luas = luas;
-// module.exports.keliling = keliling;
+module.exports = {
+	name: 'flash',
+	color: 'yellow',
+};
 
-=================================================CARA MEMANGGIL NYA :
+module/cats/marry.js :
 
-// Mengimpor modul math
-const math = require('./rumus');
+module.exports = {
+	name: 'marry',
+	color: 'gray',
+};
 
-// Contoh penggunaan fungsi dan variabel dari modul math
-const hasilPenjumlahan = math.penjumlahan(2, 3);
-console.log('Hasil Penjumlahan:', hasilPenjumlahan);
+module/cats/mio.js :
 
-const hasilLuas = math.luas(4, 5);
-console.log('Hasil Luas:', hasilLuas);
+module.exports = {
+	name: 'mio',
+	color: 'black',
+};
 
-const hasilKeliling = math.keliling(3);
-console.log('Hasil Keliling:', hasilKeliling);
-
-console.log('Nilai PI:', math.PI);
+==============================
 
 
-========================================================
+
+CARA MEMANGGIL DI BEDA FOLDER dia langsung baca index.js:
+
+const test = require('./modul test');
+
+console.log(test);
+
+=========================================
