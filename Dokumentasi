@@ -1,83 +1,31 @@
-Apa Itu Npm
+Cara Menginstall Package Dan Menggunakannya
 
-======================
+=============================================
 
-https://www.npmjs.com/
+1. ketik "npm init" terus next next
+2. kita mau coba gabungkan 3 npm packages yaitu : chalk-rainbow, give-me-a-joke dan cowsay
 
-==========================
+3. Jangan lupa install paket npm : 
+	- npm i chalk-rainbow
+	- npm i give-me-a-joke
+	- npm i cowsay
 
-Get a colorful rainbow string using chalk.
-https://www.npmjs.com/package/chalk-rainbow :
+4. code Buat index.js :
 
-1. npm install --save chalk-rainbow
-2, 	const chalkRainbow = require('chalk-rainbow');
-	console.log(chalkRainbow('Awesome rainbow string!')); // Menghasilkan string berwarna pelangi
+	const giveMeAJoke = require('give-me-a-joke');
+	const chalkRainbow = require('chalk-rainbow');
+	const cowsay = require('cowsay');
 
+	// Mendapatkan lelucon dad acak
+	giveMeAJoke.getRandomDadJoke(function(joke) {
 
-======================================================
+	  // Mengubah lelucon menjadi suara sapi menggunakan cowsay
+  	const cowsayText = cowsay.say({
+    	text: chalkRainbow(joke),
+    	e: "oO",
+    	T: "U"
+  	});
+  	console.log(cowsayText);
+	});
 
-https://www.npmjs.com/package/chalk :
-
-1. npm install chalk
-2. Buat nama file nya "index.mjs" BUKAN JS YA
-2. 	import chalk from 'chalk';
-
-	console.log(chalk.blue('Hello world!'));
-
-
-========================================
-
-
-isi NPM : 
-
-
-D:\NodeJS\chalk-project> npm
-npm <command>
-
-Usage:
-
-npm install        install all the dependencies in your project
-npm install <foo>  add the <foo> dependency to your project
-npm test           run this project's tests
-npm run <foo>      run the script named <foo>
-npm <command> -h   quick help on <command>
-npm -l             display usage info for all commands
-npm help <term>    search for help on <term> (in a browser)
-npm help npm       more involved overview (in a browser)
-
-All commands:
-
-    access, adduser, audit, bugs, cache, ci, completion,
-    config, dedupe, deprecate, diff, dist-tag, docs, doctor,
-    edit, exec, explain, explore, find-dupes, fund, get, help,
-    help-search, hook, init, install, install-ci-test,
-    install-test, link, ll, login, logout, ls, org, outdated,
-    owner, pack, ping, pkg, prefix, profile, prune, publish,
-    query, rebuild, repo, restart, root, run-script, sbom,
-    search, set, shrinkwrap, star, stars, start, stop, team,
-    test, token, uninstall, unpublish, unstar, update, version,
-    view, whoami
-
-Specify configs in the ini-formatted file:
-    C:\Users\User\.npmrc
-or on the command line via: npm <command> --key=value
-
-More configuration info: npm help config
-Configuration fields: npm help 7 config
-
-npm@10.5.0 C:\Users\User\AppData\Roaming\npm\node_modules\npm
-(base) PS D:\NodeJS\chalk-project>
-
-============================================================================
-
-
-
-
-
-
-
-
-
-
-
-
+==============================
