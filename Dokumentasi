@@ -1,31 +1,12 @@
-Cara Menginstall Package Dan Menggunakannya
-
-=============================================
-
-1. ketik "npm init" terus next next
-2. kita mau coba gabungkan 3 npm packages yaitu : chalk-rainbow, give-me-a-joke dan cowsay
-
-3. Jangan lupa install paket npm : 
-	- npm i chalk-rainbow
-	- npm i give-me-a-joke
-	- npm i cowsay
-
-4. code Buat index.js :
-
-	const giveMeAJoke = require('give-me-a-joke');
-	const chalkRainbow = require('chalk-rainbow');
-	const cowsay = require('cowsay');
-
-	// Mendapatkan lelucon dad acak
-	giveMeAJoke.getRandomDadJoke(function(joke) {
-
-	  // Mengubah lelucon menjadi suara sapi menggunakan cowsay
-  	const cowsayText = cowsay.say({
-    	text: chalkRainbow(joke),
-    	e: "oO",
-    	T: "U"
-  	});
-  	console.log(cowsayText);
-	});
+Menggunakan Global Package
 
 ==============================
+
+1. npm list -g --depth=0
+2. npm uninstall -g cowsay
+
+contoh install secara gelobal :
+https://www.npmjs.com/package/cowsay
+3. npm install -g cowsay
+
+=========================================
