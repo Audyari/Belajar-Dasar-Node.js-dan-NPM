@@ -1,170 +1,47 @@
-Latihan Menggunakan Modul Filesystem Node.Js
+Bekerja Dengan Module Exports Di Node.Js
 
-===============================================
+==============================================
 
-CODE DASAR : makeDirectory
+buat file rumus.js :
 
+const penjumlahan = (a, b) => a + b;
 
-const { mkdir } = require('node:fs/promises');
-const { join } = require('node:path');
+const PI = 3.14;
 
-async function makeDirectory() {
-  const projectFolder = join(__dirname, 'Audy');
-  const dirCreation = await mkdir(projectFolder, { recursive: true });
+const luas = (p, l) => p * l;
 
-  console.log(dirCreation);
-  return dirCreation;
-}
+const keliling = (jari) => 2 * PI * jari;
 
-makeDirectory().catch(console.error);
+const math = {
+	penjumlahan,
+	PI,
+	luas,
+	keliling,
+};
+
+module.exports = math;
+
+// module.exports.penjumlahan = penjumlahan;
+// module.exports.PI = PI;
+// module.exports.luas = luas;
+// module.exports.keliling = keliling;
+
+=================================================CARA MEMANGGIL NYA :
+
+// Mengimpor modul math
+const math = require('./rumus');
+
+// Contoh penggunaan fungsi dan variabel dari modul math
+const hasilPenjumlahan = math.penjumlahan(2, 3);
+console.log('Hasil Penjumlahan:', hasilPenjumlahan);
+
+const hasilLuas = math.luas(4, 5);
+console.log('Hasil Luas:', hasilLuas);
+
+const hasilKeliling = math.keliling(3);
+console.log('Hasil Keliling:', hasilKeliling);
+
+console.log('Nilai PI:', math.PI);
+
 
 ========================================================
-
-1. fsPromises.mkdir(path[, options]) adalah cara modern untuk membuat direktori di Node.js.
-
-const fsPromises = require('fs').promises;
-
-async function makeDirectory() {
-  try {
-    await fsPromises.mkdir('/path/to/directory', { recursive: true });
-    console.log('Directory created successfully');
-  } catch (error) {
-    console.error('Error creating directory:', error);
-  }
-}
-
-makeDirectory();
-
-============================================================
-
-2. fs.mkdir(path[, options], callback) adalah cara tradisional untuk membuat direktori di Node.js.
-
-const fs = require('fs');
-
-function makeDirectory() {
-  fs.mkdir('/path/to/directory', { recursive: true }, (error) => {
-    if (error) {
-      console.error('Error creating directory:', error);
-    } else {
-      console.log('Directory created successfully');
-    }
-  });
-}
-
-makeDirectory();
-
-============================================================
-
-3. fs.mkdirSync(path[, options]) adalah cara sinkron (memblokir) untuk membuat direktori di Node.js.
-
-const fs = require('fs');
-
-try {
-  fs.mkdirSync('/path/to/directory', { recursive: true });
-  console.log('Directory created successfully');
-} catch (error) {
-  console.error('Error creating directory:', error);
-}
-
-
-============================================================
-
-
-filehandle.writeFile(data, options) adalah metode yang digunakan untuk menulis data ke sebuah file menggunakan objek File Handle. 
-
-const fsPromises = require('fs').promises;
-
-async function writeFileUsingFileHandle() {
-  const filehandle = await fsPromises.open('./file', 'w');
-  await filehandle.writeFile('Hello, World!');
-  console.log('Data has been written to the file');
-  await filehandle.close();
-}
-
-writeFileUsingFileHandle();
-
-============================================================
-
-1. fsPromises.writeFile(file, data[, options]): Metode ini digunakan untuk menulis data ke sebuah file menggunakan path file.
-2. fs.writeFileSync(file, data[, options]): Metode ini digunakan untuk menulis data ke sebuah file secara sinkron (memblokir).
-
-============================================================================
-
-
-Menggabungkan 2 metode : makedir & writefile
-
-const fsPromises = require('fs').promises;
-
-async function createDirectoryAndWriteFile() {
-  const directoryPath = './directory';
-  const filePath = `${directoryPath}/file.txt`;
-
-  try {
-    // Membuat direktori
-    await fsPromises.mkdir(directoryPath, { recursive: true });
-    console.log('Direktori telah dibuat');
-
-    // Membuka file handle
-    const fileHandle = await fsPromises.open(filePath, 'w');
-    console.log('File handle telah dibuka');
-
-    // Menulis data ke file
-    await fileHandle.writeFile('Hello, World!');
-    console.log('Data telah ditulis ke file');
-
-    // Menutup file handle
-    await fileHandle.close();
-    console.log('File handle telah ditutup');
-  } catch (error) {
-    console.error('Terjadi kesalahan:', error);
-  }
-}
-
-createDirectoryAndWriteFile();
-
-=======================================================
-
-
-penambahan menggunakkan argv :
-
-
-const fsPromises = require('fs').promises;
-const { argv } = require('process');
-
-async function createDirectoryAndWriteFile() {
-  if (argv.length < 4) {
-    console.error('Usage: node script.js <directory_path> <file_name>');
-    return;
-  }
-
-  const directoryPath = argv[2];
-  const fileName = argv[3];
-  const filePath = `${directoryPath}/${fileName}`;
-
-  try {
-    // Membuat direktori
-    await fsPromises.mkdir(directoryPath, { recursive: true });
-    console.log('Direktori telah dibuat');
-
-    // Membuka file handle
-    const fileHandle = await fsPromises.open(filePath, 'w');
-    console.log('File handle telah dibuka');
-
-    // Menulis data ke file
-    await fileHandle.writeFile('Hello, World!');
-    console.log('Data telah ditulis ke file');
-
-    // Menutup file handle
-    await fileHandle.close();
-    console.log('File handle telah ditutup');
-  } catch (error) {
-    console.error('Terjadi kesalahan:', error);
-  }
-}
-
-createDirectoryAndWriteFile();
-
-
-=====================Penggunaan : node test.js ./asep acuu.txt 
-
-==================================================
