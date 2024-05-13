@@ -1,37 +1,141 @@
-Cara Menginstall Package Dari Package.Json
+Latihan Membuat Project Berbasis Node.Js Dengan Package Npm
 
-=============================================
+==================================================================
 
-caba gabukan dua packages :
+Buat Aplikasi pomotimer : 
 
-https://www.npmjs.com/package/moment
+dia pake 2 npm :  
+    "moment": "^2.29.4",
+    "node-notifier": "^10.0.1"
 
-https://www.npmjs.com/package/node-notifier
+CODE NYA :  index.js
 
-===================CODE NYA : 
-
-const moment = require('moment');
 const notifier = require('node-notifier');
+const moment = require('moment');
+const argTime = process.argv.slice(2);
 
-// Contoh penggunaan Moment.js untuk memformat tanggal
-const today = moment().format('YYYY-MM-DD');
-console.log(`Hari ini: ${today}`);
+const POMODORO_DURATION = argTime[0];
+const BREAK_DURATION = argTime[1];
 
-// Contoh penggunaan node-notifier untuk mengirim notifikasi
-notifier.notify({
-  title: 'Pesan dari Node.js',
-  message: 'Halo! Ini adalah notifikasi dari node-notifier.',
-});
+let isWorking = false;
+let remainingTime = 0;
 
-// Anda dapat menyesuaikan lebih lanjut penggunaan kedua package ini sesuai kebutuhan Anda.
+function formattingTime(totalSecond) {
+	const duration = moment.duration(totalSecond, 'seconds');
+	const hours = duration.hours().toString().padStart(2, '0');
+	const minutes = duration.minutes().toString().padStart(2, '0');
+	const seconds = duration.seconds().toString().padStart(2, '0');
+
+	return `${hours}:${minutes}:${seconds}`;
+}
+
+function startTimer(duration) {
+	isWorking = !isWorking;
+	remainingTime = duration * 60;
+
+	const timer = setInterval(() => {
+		remainingTime--;
+
+		const formattedTime = formattingTime(remainingTime);
+
+		console.log(`${isWorking ? 'Work' : 'Break'}: ${formattedTime} `);
+
+		if (remainingTime === 0) {
+			clearInterval(timer);
+			notifier.notify({
+				title: isWorking ? 'Break Time!' : 'Good Work!',
+				message: isWorking ? 'Good break!' : 'Good work!',
+				sound: true,
+				wait: true,
+			});
+			startTimer(isWorking ? BREAK_DURATION : POMODORO_DURATION);
+		}
+	}, 1000);
+}
+
+startTimer(POMODORO_DURATION);
+
+============================================untuk menjalankan nya :
+
+ketik : nama_file.js 5 5 
+
+maksud nya 5 menit kerja 5 menit istirahat
 
 
-==========================================================
+==================================================
 
-web berita bagus : https://dev.to/
+CODE SETELAH DI KEMBANGKAN : 
 
-===========================================
+const notifier = require("node-notifier");
+const moment = require("moment");
 
-PR BIKI APLIKASI CHAT DENGAN NODE JS
+// Fungsi untuk memvalidasi argumen
+function validateArguments(args) {
+  if (args.length !== 2) {
+    console.error(
+      "Penggunaan: node script.js <durasi_pomodoro> <durasi_istirahat>"
+    );
+    process.exit(1);
+  }
 
-========================================
+  const pomoLength = parseInt(args[0]);
+  const breakLength = parseInt(args[1]);
+
+  if (isNaN(pomoLength) || isNaN(breakLength)) {
+    console.error("Argumen harus berupa angka");
+    process.exit(1);
+  }
+
+  return { pomoLength, breakLength };
+}
+
+const argTime = process.argv.slice(2);
+const {
+  pomoLength: POMODORO_DURATION,
+  breakLength: BREAK_DURATION,
+} = validateArguments(argTime);
+
+let isWorking = false;
+let remainingTime = 0;
+let cycleCount = 0;
+
+function formattingTime(totalSecond) {
+  const duration = moment.duration(totalSecond, "seconds");
+  const hours = duration.hours().toString().padStart(2, "0");
+  const minutes = duration.minutes().toString().padStart(2, "0");
+  const seconds = duration.seconds().toString().padStart(2, "0");
+  return `${hours}:${minutes}:${seconds}`;
+}
+
+function startTimer(duration) {
+  isWorking = !isWorking;
+  remainingTime = duration * 60;
+  const startTime = moment().format("HH:mm:ss"); // Waktu mulai
+
+  const timer = setInterval(() => {
+    remainingTime--;
+    const formattedTime = formattingTime(remainingTime);
+    console.log(`${isWorking ? "Kerja" : "Istirahat"}: ${formattedTime}`);
+
+    if (remainingTime === 0) {
+      clearInterval(timer);
+      cycleCount++; // Menambahkan jumlah siklus
+      const endTime = moment().format("HH:mm:ss"); // Waktu akhir
+      console.log(`Siklus ${cycleCount} selesai (${startTime} - ${endTime})`);
+
+      notifier.notify({
+        title: isWorking ? "Waktu Istirahat!" : "Kerja Bagus!",
+        message: isWorking ? "Istirahat yang baik!" : "Kerja yang baik!",
+        sound: true,
+        wait: true,
+      });
+
+      startTimer(isWorking ? BREAK_DURATION : POMODORO_DURATION);
+    }
+  }, 1000);
+}
+
+startTimer(POMODORO_DURATION);
+
+
+==============================================
