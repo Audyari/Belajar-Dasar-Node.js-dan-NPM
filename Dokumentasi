@@ -1,141 +1,121 @@
-Latihan Membuat Project Berbasis Node.Js Dengan Package Npm
+JavaScript Interview: Can You Stop or Break a forEach Loop?
 
 ==================================================================
 
-Buat Aplikasi pomotimer : 
+Kesimpulan: forEach menawarkan pendekatan sederhana untuk iterasi array, tetapi kurang fleksibel dalam
+menghentikan loop. Alternatif seperti for...of, some(), dan every() memberikan kontrol yang lebih baik untuk 
+skenario yang lebih kompleks.
 
-dia pake 2 npm :  
-    "moment": "^2.29.4",
-    "node-notifier": "^10.0.1"
+1. Contoh forEach
+2. Contoh forEach dengan return
+3. Contoh forEach dengan Eksepsi
+4. Contoh for...of Loop
+5. Contoh Array.prototype.some()
+6. Contoh Array.prototype.every()
 
-CODE NYA :  index.js
+==========================================
 
-const notifier = require('node-notifier');
-const moment = require('moment');
-const argTime = process.argv.slice(2);
+1. Contoh forEach
 
-const POMODORO_DURATION = argTime[0];
-const BREAK_DURATION = argTime[1];
+const fruits = ["apple", "banana", "cherry"];
+fruits.forEach(function(fruit) {
+  console.log(fruit);
+});
 
-let isWorking = false;
-let remainingTime = 0;
+// Output:
+// apple
+// banana
+// cherry
 
-function formattingTime(totalSecond) {
-	const duration = moment.duration(totalSecond, 'seconds');
-	const hours = duration.hours().toString().padStart(2, '0');
-	const minutes = duration.minutes().toString().padStart(2, '0');
-	const seconds = duration.seconds().toString().padStart(2, '0');
+2. Contoh forEach dengan return
 
-	return `${hours}:${minutes}:${seconds}`;
-}
-
-function startTimer(duration) {
-	isWorking = !isWorking;
-	remainingTime = duration * 60;
-
-	const timer = setInterval(() => {
-		remainingTime--;
-
-		const formattedTime = formattingTime(remainingTime);
-
-		console.log(`${isWorking ? 'Work' : 'Break'}: ${formattedTime} `);
-
-		if (remainingTime === 0) {
-			clearInterval(timer);
-			notifier.notify({
-				title: isWorking ? 'Break Time!' : 'Good Work!',
-				message: isWorking ? 'Good break!' : 'Good work!',
-				sound: true,
-				wait: true,
-			});
-			startTimer(isWorking ? BREAK_DURATION : POMODORO_DURATION);
-		}
-	}, 1000);
-}
-
-startTimer(POMODORO_DURATION);
-
-============================================untuk menjalankan nya :
-
-ketik : nama_file.js 5 5 
-
-maksud nya 5 menit kerja 5 menit istirahat
-
-
-==================================================
-
-CODE SETELAH DI KEMBANGKAN : 
-
-const notifier = require("node-notifier");
-const moment = require("moment");
-
-// Fungsi untuk memvalidasi argumen
-function validateArguments(args) {
-  if (args.length !== 2) {
-    console.error(
-      "Penggunaan: node script.js <durasi_pomodoro> <durasi_istirahat>"
-    );
-    process.exit(1);
+const numbers = [1, 2, 3, 4, 5];
+numbers.forEach(number => {
+  if (number === 3) {
+    return; // Hanya menghentikan iterasi saat ini
   }
+  console.log(number);
+});
 
-  const pomoLength = parseInt(args[0]);
-  const breakLength = parseInt(args[1]);
+// Output:
+// 1
+// 2
+// 4
+// 5
 
-  if (isNaN(pomoLength) || isNaN(breakLength)) {
-    console.error("Argumen harus berupa angka");
-    process.exit(1);
-  }
+3. Contoh forEach dengan Eksepsi
 
-  return { pomoLength, breakLength };
-}
-
-const argTime = process.argv.slice(2);
-const {
-  pomoLength: POMODORO_DURATION,
-  breakLength: BREAK_DURATION,
-} = validateArguments(argTime);
-
-let isWorking = false;
-let remainingTime = 0;
-let cycleCount = 0;
-
-function formattingTime(totalSecond) {
-  const duration = moment.duration(totalSecond, "seconds");
-  const hours = duration.hours().toString().padStart(2, "0");
-  const minutes = duration.minutes().toString().padStart(2, "0");
-  const seconds = duration.seconds().toString().padStart(2, "0");
-  return `${hours}:${minutes}:${seconds}`;
-}
-
-function startTimer(duration) {
-  isWorking = !isWorking;
-  remainingTime = duration * 60;
-  const startTime = moment().format("HH:mm:ss"); // Waktu mulai
-
-  const timer = setInterval(() => {
-    remainingTime--;
-    const formattedTime = formattingTime(remainingTime);
-    console.log(`${isWorking ? "Kerja" : "Istirahat"}: ${formattedTime}`);
-
-    if (remainingTime === 0) {
-      clearInterval(timer);
-      cycleCount++; // Menambahkan jumlah siklus
-      const endTime = moment().format("HH:mm:ss"); // Waktu akhir
-      console.log(`Siklus ${cycleCount} selesai (${startTime} - ${endTime})`);
-
-      notifier.notify({
-        title: isWorking ? "Waktu Istirahat!" : "Kerja Bagus!",
-        message: isWorking ? "Istirahat yang baik!" : "Kerja yang baik!",
-        sound: true,
-        wait: true,
-      });
-
-      startTimer(isWorking ? BREAK_DURATION : POMODORO_DURATION);
+const numbers = [1, 2, 3, 4, 5];
+try {
+  numbers.forEach(number => {
+    if (number > 3) {
+      throw new Error('Loop stopped');
     }
-  }, 1000);
+    console.log(number);
+  });
+} catch (e) {
+  console.log('Loop was stopped due to an exception.');
 }
 
-startTimer(POMODORO_DURATION);
+// Output:
+// 1
+// 2
+// 3
+// Loop was stopped due to an exception.
 
 
-==============================================
+4. Contoh for...of Loop
+
+const numbers = [1, 2, 3, 4, 5];
+
+for (const number of numbers) {
+  if (number > 3) {
+    break; // Berhasil menghentikan loop
+  }
+  console.log(number);
+}
+
+// Output:
+// 1
+// 2
+// 3
+
+
+5. Contoh Array.prototype.some()
+
+const numbers = [1, 2, 3, 4, 5];
+
+numbers.some(number => {
+  if (number > 3) {
+    return true; // Menghentikan iterasi
+  }
+  console.log(number);
+  return false;
+});
+
+// Output:
+// 1
+// 2
+// 3
+
+6. Contoh Array.prototype.every()
+
+const numbers = [1, 2, 3, 4, 5];
+
+numbers.every(number => {
+  if (number > 3) {
+    return false; // Menghentikan iterasi
+  }
+  console.log(number);
+  return true;
+});
+
+// Output:
+// 1
+// 2
+// 3
+
+
+=========================================
+
+
